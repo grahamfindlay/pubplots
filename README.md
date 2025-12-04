@@ -127,3 +127,8 @@ Figma uses non-standard scaling that requires special handling when importing SV
 - Therefore, to get a figure that is actually 2" wide at 300dpi, you need to ask matplotlib to create a figure that is 2 × (300/96) = 6.25" wide, which will be saved as 450pt wide, and then imported into Figma as 600 pixels wide, which is 600/300 = 2" wide.
 
 This package handles all of this scaling automatically when you use `pubplots.destination("figma")`.
+
+## See Also
+
+- [Figure requirements by journal](docs/journal_requirements.md) (work-in-progress).
+- [Pros, cons, and "gotchas" for various vector graphics editors](docs/pros_cons_gotchas.md).
