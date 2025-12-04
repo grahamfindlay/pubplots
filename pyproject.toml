@@ -1,6 +1,6 @@
 [project]
 name = "pubplots"
-version = "0.1.0"
+version = "0.1.1"
 description = "A small tool to help navigate the hellscape of preparing figures for scientific publishing."
 readme = "README.md"
 authors = [
