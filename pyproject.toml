@@ -6,8 +6,8 @@ readme = "README.md"
 authors = [
     { name = "Graham Findlay", email = "gfindlay@wisc.com" }
 ]
-requires-python = ">=3.13"
-dependencies = ["matplotlib"]
+requires-python = ">=3.10"
+dependencies = ["matplotlib>=3.6"]
 
 [project.urls]
 Repository = "https://github.com/grahamfindlay/pubplots.git"
