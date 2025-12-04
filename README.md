@@ -38,20 +38,56 @@ with pp.destination("figma"):
     width, height, margin = pp.scale(3, 2, 0.5)
 ```
 
-For non-Figma destinations (Adobe Illustrator, Affinity Designer, Inkscape), use any other string:
+For non-Figma destinations (Adobe Illustrator, Affinity Designer, Inkscape), use any other string (e.g. `"default"`):
 
 ```python
-with pp.destination("adobe"):
+with pp.destination("default"):
     fig, ax = plt.subplots(figsize=pp.scale(3, 2))
     # No special scaling applied
 ```
 
-If you don't know your final destination, you can use `"default"` or any other string:
+### Using Styles
+
+You can apply matplotlib styles using the `style` parameter. Styles can be specified in any format that `plt.style.use()` accepts:
+
+- A style name from `plt.style.available` (e.g., `"ggplot"`, `"seaborn-v0_8"`)
+- A `Path` to a `.mplstyle` file
+- A dictionary of rcParams
+- A list of any of the above (styles are composed left-to-right, just like `plt.style.use()`)
 
 ```python
-with pp.destination("default"):
-    # Standard scaling (1.0) is applied
+# Use a built-in style
+with pp.destination("figma", style="ggplot"):
     fig, ax = plt.subplots(figsize=pp.scale(3, 2))
+    ax.plot([0, 1, 2], [0, 1, 4])
+    fig.savefig("ggplot_figure.svg")
+
+# Use a custom style file
+from pathlib import Path
+with pp.destination("figma", style=Path("my_custom_style.mplstyle")):
+    fig, ax = plt.subplots(figsize=pp.scale(3, 2))
+    ax.plot([0, 1, 2], [0, 1, 4])
+    fig.savefig("custom_figure.svg")
+
+# Compose multiple styles (applied left-to-right)
+with pp.destination("figma", style=["ggplot", {"lines.linewidth": 2.0}]):
+    fig, ax = plt.subplots(figsize=pp.scale(3, 2))
+    ax.plot([0, 1, 2], [0, 1, 4])
+    fig.savefig("composed_figure.svg")
+```
+
+### Style Scaling
+
+By default, when using `destination("figma")`, certain rcParams (line widths, marker sizes, padding, etc.) are automatically scaled along with the figure size to preserve the visual appearance. If you want to disable this behavior and only scale the figure size and font sizes, set `style_scaling=False`:
+
+```python
+# Disable automatic scaling of style parameters
+with pp.destination("figma", style="ggplot", style_scaling=False):
+    fig, ax = plt.subplots(figsize=pp.scale(3, 2))
+    # Only figure size and font sizes are scaled; line widths, marker sizes,
+    # tick sizes, etc. retain their original values from the style.
+    ax.plot([0, 1, 2], [0, 1, 4])
+    fig.savefig("no_style_scaling.svg")
 ```
 
 ## Font Configuration
