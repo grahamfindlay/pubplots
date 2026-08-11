@@ -1,8 +1,6 @@
 ---
 title: Using pp.scale and letting rcParams drive font sizes
-status: active
 updated: 2026-07-26
-confirmed_by_user: not_required
 ---
 
 # Inside `pp.destination(...)`: scale sizes, never hardcode font sizes
